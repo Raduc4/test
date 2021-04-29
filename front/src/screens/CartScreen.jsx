@@ -7,7 +7,7 @@ const CartScreen = () => {
   return (
     <div>
       {cart.map((item) => (
-        <h1></h1>
+        <h1>{item.productName}</h1>
       ))}
     </div>
   );

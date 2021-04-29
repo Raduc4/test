@@ -23,7 +23,7 @@ const ProductTableAction = ({
   };
 
   const submit = () => {
-    addToCart(id, productCategory, productName, productPrice, productQty);
+    addToCart(productCategory, productName, productPrice, productQty, id);
     console.log(cart);
   };
 
