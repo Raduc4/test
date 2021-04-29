@@ -12,39 +12,6 @@ function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
 
-  const addToCart = (
-    productCategory,
-    productName,
-    productPrice,
-    productQty,
-    id
-  ) => {
-    const existItem = cart.find((x) => x.id === id);
-
-    if (existItem) {
-      setCart((cart) => [
-        Object.assign(
-          ...cart,
-          cart.map((x) =>
-            x.id === existItem.id
-              ? { productCategory, productName, productPrice, productQty, id }
-              : x
-          )
-        ),
-      ]);
-    } else {
-      setCart(
-        Object.assign(...cart, {
-          productCategory,
-          productName,
-          productPrice,
-          productQty,
-          id,
-        })
-      );
-    }
-  };
-
   useEffect(() => {
     async function productsApiCall() {
       const api_call = await fetch("http://localhost:3001/api/products");
@@ -58,7 +25,7 @@ function App() {
     <DataContext.Provider
       value={{
         products,
-        addToCart,
+        setCart,
         cart,
       }}
     >
