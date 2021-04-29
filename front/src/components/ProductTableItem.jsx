@@ -14,9 +14,9 @@ const ProductTableAction = ({
     const item = { productCategory, productName, productPrice, productQty, id };
 
     setCart((currentCart) => {
-      const existItem = cart.find((item) => item.id === id);
+      const existItem = currentCart.find((item) => item.id === id);
       if (existItem) {
-        currentCart.find((obj) => obj.id === item.id).productQty += productQty;
+        existItem.productQty += productQty;
       } else {
         currentCart.push(item);
       }
