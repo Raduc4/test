@@ -7,9 +7,6 @@ const Header = () => {
   return (
     <ul
       style={{
-        display: "grid",
-        gridGap: "10px",
-        gridTemplateColumns: "5vw 1fr",
         marginBottom: "2%",
       }}
     >

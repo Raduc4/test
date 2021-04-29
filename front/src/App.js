@@ -10,23 +10,36 @@ import CartScreen from "./screens/CartScreen";
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (
+    productCategory,
+    productName,
+    productPrice,
+    productQty,
+    id
+  ) => {
+    setCart((cart) => [
+      ...cart,
+      { productCategory, productName, productPrice, productQty, id },
+    ]);
+  };
 
   useEffect(() => {
-    async function productApiCall() {
+    async function productsApiCall() {
       const api_call = await fetch("http://localhost:3001/api/products");
       const data = await api_call.json();
       setProducts(data);
     }
-    productApiCall();
+    productsApiCall();
   }, []);
-
-  const cartProducts = [];
 
   return (
     <DataContext.Provider
       value={{
         products,
-        cartProducts,
+        addToCart,
+        cart,
       }}
     >
       <Router>

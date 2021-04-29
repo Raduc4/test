@@ -4,7 +4,7 @@ import ProductTableItem from "../components/ProductTableItem";
 import { DataContext } from "../context/Context";
 
 const MainScreen = () => {
-  const { products, cartProducts } = useContext(DataContext);
+  const { products } = useContext(DataContext);
   return (
     <table>
       <thead>
@@ -16,11 +16,13 @@ const MainScreen = () => {
         </tr>
       </thead>
       <tbody>
-        {products.map((item) => (
+        {products.map((item, index) => (
           <ProductTableItem
+            key={`key${index}${item.category.id}`}
             productCategory={item.category.name}
             productName={item.name}
             productPrice={item.price}
+            id={item.id}
           />
         ))}
       </tbody>

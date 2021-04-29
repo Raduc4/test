@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { DataContext } from "../context/Context";
 
-const ProductTableAction = ({ productCategory, productName, productPrice }) => {
-  const { cartProducts } = useContext(DataContext);
+const ProductTableAction = ({
+  productCategory,
+  productName,
+  productPrice,
+  id,
+}) => {
+  const { products, cart, addToCart } = useContext(DataContext);
   const [productQty, setProductQty] = useState(1);
 
   const substractQty = () => {
@@ -17,24 +22,11 @@ const ProductTableAction = ({ productCategory, productName, productPrice }) => {
     setProductQty(productQty + 1);
   };
 
-  const addToCartHandler = () => {
-    cartProducts.push({
-      productCategory,
-      productName,
-      productPrice,
-      productQty,
-    });
-    // setCartProducts([
-    //   Object.assign(cartProducts, {
-    //     productCategory,
-    //     productName,
-    //     productPrice,
-    //     productQty,
-    //   }),
-    // ]);
+  const submit = () => {
+    addToCart(id, productCategory, productName, productPrice, productQty);
+    console.log(cart);
   };
 
-  console.log(cartProducts);
   return (
     <tr>
       <th>{productCategory}</th>
@@ -44,7 +36,7 @@ const ProductTableAction = ({ productCategory, productName, productPrice }) => {
         <button onClick={substractQty} type="button">
           (-)
         </button>
-        <button onClick={addToCartHandler}>Select</button>
+        <button onClick={submit}>Select</button>
         <button onClick={addQty} type="button">
           (+)
         </button>
