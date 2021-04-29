@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { DataContext } from "../context/Context";
 
 const ProductTableAction = ({
@@ -7,8 +7,22 @@ const ProductTableAction = ({
   productPrice,
   id,
 }) => {
-  const { products, cart, addToCart } = useContext(DataContext);
+  const { products, cart, setCart } = useContext(DataContext);
   const [productQty, setProductQty] = useState(1);
+
+  const addToCart = () => {
+    const item = { productCategory, productName, productPrice, productQty, id };
+
+    setCart((currentCart) => {
+      const existItem = cart.find((item) => item.id === id);
+      if (existItem) {
+        currentCart.find((obj) => obj.id === item.id).productQty += productQty;
+      } else {
+        currentCart.push(item);
+      }
+      return currentCart;
+    });
+  };
 
   const substractQty = () => {
     if (productQty === 1) {
@@ -22,11 +36,6 @@ const ProductTableAction = ({
     setProductQty(productQty + 1);
   };
 
-  const submit = () => {
-    addToCart(productCategory, productName, productPrice, productQty, id);
-    console.log(cart);
-  };
-
   return (
     <tr>
       <th>{productCategory}</th>
@@ -36,7 +45,7 @@ const ProductTableAction = ({
         <button onClick={substractQty} type="button">
           (-)
         </button>
-        <button onClick={submit}>Select</button>
+        <button onClick={addToCart}>Select</button>
         <button onClick={addQty} type="button">
           (+)
         </button>
