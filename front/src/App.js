@@ -11,6 +11,14 @@ import CartScreen from "./screens/CartScreen";
 function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  const [notRemovedCartItems, setNotRemovedCartItems] = useState([]);
+
+  const removeFromCart = (array, id) => {
+    const filtered = array.filter((value) => {
+      return value.id !== id;
+    });
+    setNotRemovedCartItems(filtered);
+  };
 
   useEffect(() => {
     async function productsApiCall() {
@@ -27,6 +35,9 @@ function App() {
         products,
         setCart,
         cart,
+        notRemovedCartItems,
+        setProducts,
+        removeFromCart,
       }}
     >
       <Router>

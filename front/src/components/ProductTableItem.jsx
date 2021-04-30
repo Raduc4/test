@@ -7,16 +7,25 @@ const ProductTableAction = ({
   productPrice,
   id,
 }) => {
-  const { products, cart, setCart } = useContext(DataContext);
+  const { setCart } = useContext(DataContext);
   const [productQty, setProductQty] = useState(1);
 
+  const item = {
+    productCategory,
+    productName,
+    productPrice,
+    productQty,
+    id,
+  };
   const addToCart = () => {
-    const item = { productCategory, productName, productPrice, productQty, id };
-
     setCart((currentCart) => {
       const existItem = currentCart.find((item) => item.id === id);
       if (existItem) {
         existItem.productQty += productQty;
+
+        existItem.productPrice = (
+          Number(item.productPrice) * Number(existItem.productQty)
+        ).toFixed(2);
       } else {
         currentCart.push(item);
       }

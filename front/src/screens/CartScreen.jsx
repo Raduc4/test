@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
+
 import CartTable from "../components/CartTable";
 import { DataContext } from "../context/Context";
 
 const CartScreen = () => {
   const { cart } = useContext(DataContext);
-  console.log(cart);
+
   return (
     <table>
       <thead>
